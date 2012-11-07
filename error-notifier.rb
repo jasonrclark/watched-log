@@ -10,6 +10,7 @@ RUBY_ERRORS = [
 JAVA_ERRORS = [
   /( FATAL .*)/,
   /(.*Exception\:.*)/,
+  /(.*Exception$)/,
 ]
 
 def tail_file(path, patterns)
