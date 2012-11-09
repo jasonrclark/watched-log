@@ -37,11 +37,12 @@ def normalize_error(original)
   original.gsub(/[\[\]\(\)]/, '_')
 end
 
-threads = []
+def run(logs_to_watch)
+  threads = []
 
-threads << tail_file('rpm_test_app/log/newrelic_agent.log', RUBY_ERRORS)
-threads << tail_file('rpm_site/java_collector/log/collector.8081.log', JAVA_ERRORS)
-threads << tail_file('rpm_site/beacon/log/server.9000.log', JAVA_ERRORS)
+  logs_to_watch.each do |log_pair|
+    threads << tail_file(log_pair[0], log_pair[1])
+  end
 
-threads.each { |t| t.join }
-
+  threads.each { |t| t.join }
+end
